@@ -11,6 +11,7 @@ import {
   import { connect } from 'react-redux'
   import { login } from '../../../domains/auth/actions'
   import * as api from '../../../domains/api/actions'
+  import {TASK, AUTHENTICATION_GLOBAL_PARAMS, REST_METHODS} from '../../url_constants'
   
   const CustomButton = styled.button`
       background: ${(props) => (props.primary ? '#2185d0' : 'white')};
@@ -50,9 +51,7 @@ import {
     handleSubmit () {
       if (this.state.description && this.state.description.trim().length > 0) {
         const submissionData = {
-          body: { description: this.state.description },
-          existingValues: (this.props.taskList && this.props.taskList.data) || [],
-          token: this.props.token
+          body: { description: this.state.description }
         }
         this.setState({
           triggeredSave: true,
@@ -120,28 +119,24 @@ import {
     return {  
       login: (params) => dispatch(login(params)),
       createTask: ({
-          token,
-          existingValues,
           body
         }) => dispatch(api.postAndUpdate(
-        dispatch,
-        'task',
+        TASK,
         body,
-        'post',
-        existingValues,
-        token,
+        REST_METHODS.POST
       ))
     }
   }
   
   const mapStateToProps = (state) => {
+    const { IS_LOGGED_IN, TOKEN } = AUTHENTICATION_GLOBAL_PARAMS
     return {
-      loggedIn: state.auth.loggedIn || localStorage.getItem('IS_LOGGED_IN'),
-      token: state.auth.token || localStorage.getItem('TOKEN'),
+      loggedIn: state.auth.loggedIn || localStorage.getItem(IS_LOGGED_IN),
+      token: state.auth.token || localStorage.getItem(TOKEN),
       loginError: state.auth.loginError,
-      loadingTaskList: api.getApiLoading(state, 'task'),
-      taskList: api.getApiResult(state, 'task') || api.getApiResult(state, 'task'),
-      taskListError: api.getApiError(state, 'task')
+      loadingTaskList: api.getApiLoading(state, TASK),
+      taskList: api.getApiResult(state, TASK) || api.getApiResult(state, TASK),
+      taskListError: api.getApiError(state, TASK)
     } 
   }
   

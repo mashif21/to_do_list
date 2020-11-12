@@ -9,6 +9,7 @@ import {
   import { connect } from 'react-redux'
   import { login, getAuthenticatedUser } from '../../../domains/auth/actions'
   import * as api from '../../../domains/api/actions'
+  import { AUTHENTICATION_GLOBAL_PARAMS, USER_URL } from '../../url_constants'
   
   class UserDetails extends Component {
     constructor (props) {
@@ -69,14 +70,15 @@ import {
     }
   }
   
-  const mapStateToProps = (state, props) => {
+  const mapStateToProps = (state) => {
+    const { IS_LOGGED_IN, TOKEN } = AUTHENTICATION_GLOBAL_PARAMS
     return {
-      loggedIn: state.auth.loggedIn || localStorage.getItem('IS_LOGGED_IN'),
-      token: state.auth.token || localStorage.getItem('TOKEN'),
+      loggedIn: state.auth.loggedIn || localStorage.getItem(IS_LOGGED_IN),
+      token: state.auth.token || localStorage.getItem(TOKEN),
       loginError: state.auth.loginError,
-      loadingUserList: api.getApiLoading(state, `user.me`),
-      userList: api.getApiResult(state, `user.me`),
-      userListError: api.getApiError(state, `user.me`)
+      loadingUserList: api.getApiLoading(state, USER_URL.USERME),
+      userList: api.getApiResult(state, USER_URL.USERME),
+      userListError: api.getApiError(state, USER_URL.USERME)
     } 
   }
   

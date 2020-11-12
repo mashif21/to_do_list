@@ -1,4 +1,10 @@
-import { Checkbox, Container, Form, Grid, Message, Loader } from 'semantic-ui-react'
+import {
+  Checkbox,
+  Container,
+  Form,
+  Grid,
+  Message
+} from 'semantic-ui-react'
 import React, { Component } from 'react'
 import { Redirect, withRouter, Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -6,6 +12,11 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { login } from '../../../domains/auth/actions'
 import * as api from '../../../domains/api/actions'
+import {
+  TASK,
+  REST_METHODS,
+  AUTHENTICATION_GLOBAL_PARAMS
+} from '../../url_constants'
 
 const CustomButton = styled.button`
   background: ${(props) => (props.primary ? '#2185d0' : 'white')};
@@ -44,7 +55,6 @@ class ToDoListCreate extends Component {
 
   componentDidMount () {
     this.props.taskDetails({
-      token: this.props.token,
       taskId: this.props.match.params.id
     })
   }
@@ -63,7 +73,6 @@ class ToDoListCreate extends Component {
         completed: this.state.completed,
         description: this.state.description
       },
-      token: this.props.token,
       taskId: this.props.match.params.id
     }
     this.setState({
@@ -165,37 +174,35 @@ const mapDispatchToProps = (dispatch) => {
     login: (params) => dispatch(login(params)),
     taskDetails: ({ token, taskId }) =>
       dispatch(
-        api.getAndDelete({
-          dispatch,
-          url: `task/${taskId}`,
-          token
+        api.getCall({
+          url: `${TASK}/${taskId}`
         })
       ),
-    updateTaskDetails: ({ token, taskId, body }) =>
-      dispatch(
-        api.postAndUpdate(dispatch, `task/${taskId}`, body, 'put', null, token)
-      ),
+    updateTaskDetails: ({ taskId, body }) =>
+      dispatch(api.postAndUpdate(`${TASK}/${taskId}`, body, REST_METHODS.PUT)),
     getTaskList: (token) =>
       dispatch(
-        api.getAndDelete({
-          dispatch,
-          url: 'task',
-          token
+        api.getCall({
+          url: TASK
         })
       )
   }
 }
 
 const mapStateToProps = (state, props) => {
+  const { TOKEN, IS_LOGGED_IN } = AUTHENTICATION_GLOBAL_PARAMS
   return {
-    loggedIn: state.auth.loggedIn || localStorage.getItem('IS_LOGGED_IN'),
-    token: state.auth.token || localStorage.getItem('TOKEN'),
+    loggedIn: state.auth.loggedIn || localStorage.getItem(IS_LOGGED_IN),
+    token: state.auth.token || localStorage.getItem(TOKEN),
     loginError: state.auth.loginError,
-    loadingTaskList: api.getApiLoading(state, `task.${props.match.params.id}`),
+    loadingTaskList: api.getApiLoading(
+      state,
+      `${TASK}.${props.match.params.id}`
+    ),
     taskList:
-      api.getApiResult(state, `task.${props.match.params.id}`) ||
-      api.getApiResult(state, `task.${props.match.params.id}`),
-    taskListError: api.getApiError(state, `task.${props.match.params.id}`)
+      api.getApiResult(state, `${TASK}.${props.match.params.id}`) ||
+      api.getApiResult(state, `${TASK}.${props.match.params.id}`),
+    taskListError: api.getApiError(state, `${TASK}.${props.match.params.id}`)
   }
 }
 

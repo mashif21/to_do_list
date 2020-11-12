@@ -1,13 +1,6 @@
 import {
     Button,
-    Card,
-    Container,
-    Form,
-    Grid,
     Icon,
-    Image,
-    Message,
-    Segment,
     Select
   } from 'semantic-ui-react'
   import React, { Component, useState } from 'react'

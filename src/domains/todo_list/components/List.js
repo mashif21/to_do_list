@@ -16,6 +16,7 @@ import {
   import {TaskCards} from './Cards'
   import { ModalComponent } from '../../elements/Popup'
   import { Filter } from './filter'
+  import { TASK, AUTHENTICATION_GLOBAL_PARAMS } from '../../url_constants'
   
 
   class ToDoList extends Component {
@@ -42,7 +43,10 @@ import {
     }
     
     handleFilterSearch (values) {
-      const queryParams = (values === 2 ? true : false)
+      let queryParams = {}
+      if (values !== 1) {
+        queryParams['completed'] = (values === 2 ? true : false)
+      }
       this.setState({
         filterTriggered: true
       })
@@ -162,16 +166,14 @@ import {
   const mapDispatchToProps = (dispatch) => {
     return {  
       login: (params) => dispatch(login(params)),
-      getTaskList: (token, queryParams = null) => dispatch(api.getAndDelete({
-        dispatch,
-        url: 'task',
-        token,
+      getTaskList: (token, queryParams = {}) => dispatch(api.getCall({
+        url: TASK,
         queryParams
       })),
       deleteTaskList: ({
         taskList, taskId
       }) => dispatch(api.deleteCall({
-        url: 'task',
+        url: TASK,
         taskId,
         existingValues: taskList
       })),
@@ -180,13 +182,14 @@ import {
   }
   
   const mapStateToProps = (state) => {
+    const { IS_LOGGED_IN, TOKEN } = AUTHENTICATION_GLOBAL_PARAMS
     return {
-      loggedIn: state.auth.loggedIn || localStorage.getItem('IS_LOGGED_IN'),
-      token: state.auth.token || localStorage.getItem('TOKEN'),
+      loggedIn: state.auth.loggedIn || localStorage.getItem(IS_LOGGED_IN),
+      token: state.auth.token || localStorage.getItem(TOKEN),
       loginError: state.auth.loginError,
-      taskListLoading: api.getApiLoading(state, 'task'),
-      taskList: api.getApiResult(state, 'task') || api.getApiResult(state, 'apitask.lastSuccessfulResult'),
-      taskListError: api.getApiError(state, 'task')
+      taskListLoading: api.getApiLoading(state, TASK),
+      taskList: api.getApiResult(state, TASK) || api.getApiResult(state, TASK),
+      taskListError: api.getApiError(state, TASK)
     } 
   }
   

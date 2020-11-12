@@ -39,7 +39,7 @@ export const USER_REGISTER_FAIL = () => ({
 export const login = (args) => {
   return (dispatch) => {
     return dispatch(api
-      .postAndUpdate(dispatch, SESSION_ROUTES['login'], args))
+      .postAndUpdate(SESSION_ROUTES['login'], args))
       .then((result) => {
         if (result && result.data) {
           api.setLoggedIn(result.data.token)
@@ -57,7 +57,7 @@ export const login = (args) => {
 export const register = (args) => {
   return (dispatch) => {
     return dispatch(
-        api.postAndUpdate(dispatch, SESSION_ROUTES['register'], args)
+        api.postAndUpdate(SESSION_ROUTES['register'], args)
       )
       .then((result) => {
         if (result && result.data) {
@@ -76,7 +76,6 @@ export const register = (args) => {
 export const logout = () => {
   return (dispatch) => {
     return dispatch(api.postAndUpdate(
-      dispatch, 
       SESSION_ROUTES['logout']
     )).then(() => {
       api.setLogedOut()
@@ -90,10 +89,8 @@ export const getAuthenticatedUser = () => {
   if (loggedIn && token) {
     return async (dispatch) => {
       if (loggedIn && token) {
-        return dispatch(api.getAndDelete({
-          dispatch, 
-          url: SESSION_ROUTES['user_data'],
-          token
+        return dispatch(api.getCall({
+          url: SESSION_ROUTES['user_data']
         }))
       }
     }

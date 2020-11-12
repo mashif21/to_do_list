@@ -56,20 +56,15 @@ export function setLogedOut () {
 }
 
 export function postAndUpdate (
-  dispatch,
   url,
   body = {},
-  type = 'post',
-  existingValues = null,
-  token = null
+  type = 'post'
 ) {
   const headers = {
     'Content-Type': 'application/json'
   }
+  const token = this.isLoggedIn().token
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-  } else {
-    token = this.isLoggedIn().token
     headers['Authorization'] = `Bearer ${token}`
   }
   return async (dispatch) => {
@@ -104,18 +99,16 @@ export function postAndUpdate (
   }
 }
 
-export function getAndDelete ({
-  dispatch,
+export function getCall ({
   url,
   params = {},
   type = 'get',
-  token = null,
-  details = true,
-  queryParams = null
+  queryParams = {}
 }) {
   const headers = {
     'Content-Type': 'application/json'
   }
+  const token = this.isLoggedIn().token
   if (token) {
     headers['Authorization'] = `Bearer ${token}`
   }
@@ -126,7 +119,13 @@ export function getAndDelete ({
       endpoint
     })
     let apiUrl = `${API_URL}${url}`
-    if (queryParams) apiUrl = `${apiUrl}?completed=${queryParams}`
+    let count = 0
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (count === 0) {
+        apiUrl = `${apiUrl}?${key}=${value}`
+      } else apiUrl = `${apiUrl}&${key}=${value}`
+      count = count + 1
+    }
     return axios({
       method: type,
       url: `${apiUrl}`,
