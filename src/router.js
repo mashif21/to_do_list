@@ -15,6 +15,7 @@ export const router = (
       <Route path='/reset' component={ResetPassword} />
       <Route path='/update/:token' component={UpdatePassword} />
       <Route path='/register' component={RegisterUser}/>
+      <Route exact path='/' component={Login} />
       <PrivateRoute component={App} />
     </Switch>
   </Router>
