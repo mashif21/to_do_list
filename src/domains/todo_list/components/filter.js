@@ -3,7 +3,7 @@ import {
     Icon,
     Select
   } from 'semantic-ui-react'
-  import React, { Component, useState } from 'react'
+  import React, { useState } from 'react'
 
 export const Filter = ({
     filterParams = [], handleFilterSearch
@@ -12,8 +12,6 @@ export const Filter = ({
     return (
         <>
             <Select style={{float: 'left'}} options={filterParams} onChange={(event, data) => { 
-                console.log("after changing value passinfg inside here and there going on iss........ didididi")
-                console.log(data)
                 setSelectedValue(data.value)}}
                 defaultValue={filterParams[0].value}
             >    

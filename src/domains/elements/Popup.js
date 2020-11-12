@@ -1,18 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
     Button,
     Container,
-    Grid,
     Header,
     Icon,
-    Label,
-    Loader,
     Modal,
-    Popup,
-    Segment,
-    Tab,
-    Table,
-    TextArea
 } from 'semantic-ui-react'
 
 export const ModalComponent = ({heading='2222', description='hhhhhhh', onPressOk, onPressCancel, openStatus=false}) => {
