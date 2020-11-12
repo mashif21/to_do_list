@@ -47,7 +47,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 # Design Pattern
   Followed flux architecture using redux store. (Observer pattern to catch application state changes)
   Followed modular design pattern to categorize code based its function
-  Followed facade design patterm for basic structure components
+  Followed facade design patterm for basic structure components and api
 
 ### Features i have completed
   - Register new user / Login flow
