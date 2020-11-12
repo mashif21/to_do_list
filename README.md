@@ -60,6 +60,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
   - UI Improvements and responsiveness
   - Pagination in to do list  
   - Test cases
+  - Added debounce and throttling features in order to manage concurrency
     Time needed for the above mentioned features are around 6 hours.
     I Can even finish it quicker but i believe quality is more important than quantity
 
@@ -72,5 +73,43 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
   - Analytics and funneling features
   - Test cases to verify stableness 
   
+
+### My view about making this API and this front end scalable
+
+## What if business requirement is single regions but heavy load and high availability like 99.99
+  
+  # Backend
+  - I would have use ECS cluster fargate instance to deploy api instances
+  - I would deploy min 2 instances inside per availability zone of region
+  - Maintain two database with synchronous in 2 availability for that region so if any case if one zone the next can take power on it
+  - Added application level load balancer (route based / or load based depends on need)
+  - Might added automated reminder when db is facing certain thresholds
+  - If its really high load then we might need to create several cluster from db for user category wise (but its only for traffic like fb etc)
+  - Implemented usage of sqs/sns queue to ensure atlease once delivey
+  - Focused a lot of db indexing, views, locks and transaction isolation etc
+
+  # Front end
+  - Deployed react js app using webpack configuration in S3 bucket and serve it using cloudfront
+  - Rate Limit and Concurrency control from front end app side
+  - Static assets serving using S3 cloud front
+  - Implemented key value storage for faster access (for example log of routing, session info etc)
+  - Target version handling
+
+  About deployment here i would have blue green or canary deployment
+
+
+## if heavy load for multiple regions
+  - Then i would have replicate the above same setup for multiple region
+  - DB synchronization using SQS topic between multiple regions in a timely manner
+  - Cost monitoring using cloud and create customized alerts (same applies for above too)
+  - Might have used on demand instance sometimes depends on need since the cost will be less by using that sometimes
+  - Might have introduced instrumentation framework
+  - Will monitor closer in network level load balancer to monitor about packet drops at thread dump near kernet place ( by default EC2 instances offers around 65k threads around kernel )
+
+
+
+  
+
+    
 
 
