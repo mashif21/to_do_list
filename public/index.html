@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>To Do List Portal</title>
+
+  <meta name="version" content="<%= htmlWebpackPlugin.options.version %>" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=95" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:400,600,500&amp;subset=latin,latin-ext"
+    media="all" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.7.4/tailwind.css" rel="stylesheet" />
+  <style>
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      display: flex;
+      min-height: 100%;
+      width: 100%;
+      font-family: 'Poppins';
+      position: relative;
+      z-index: 0;
+    }
+
+    body::before {
+      background-repeat: no-repeat;
+      background-position-x: center;
+      background-position-y: 120px;
+      background-size: contain;
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 300px;
+      opacity: 0.1;
+      filter: grayscale(1);
+      z-index: 0;
+    }
+
+    #app {
+      position: relative;
+      z-index: 1;
+    }
+
+    .ui.label {
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app" class="min-h-full w-full"></div>
+  <script src="/js/bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+
+</html>
