@@ -17,7 +17,7 @@ You will also see any lint errors in the console.
 
 # To Run in Production (Cloud)
   We have deployment script in file deploy.sh 
-  Through that script it is going to execute aws s3 sync which will bundle and upload our app to aws s3 bucket and deliver page using cloud front
+  Through that script it is going to execute aws s3 sync which will bundle and upload our app to aws s3 bucket and deliver page using cloud front (Webpack config is missing now)
   We will be following semantic versioning for deployment which we can get using the command ~ git describe
   If we have any development channel like slack we using notify post deployment information using curl command webhook
 
@@ -76,7 +76,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### My view about making this API and this front end scalable
 
-## What if business requirement is single regions but heavy load and high availability like 99.99
+## What if business requirement is single region but heavy load and high availability like 99.99
   
   # Backend
   - I would have use ECS cluster fargate instance to deploy api instances

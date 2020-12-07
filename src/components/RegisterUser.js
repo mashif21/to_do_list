@@ -64,7 +64,7 @@ class RegisterUser extends Component {
         verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Container className='m-4'>
-            <Image src='/img/nuvalence.jpeg' size='medium' centered />
+            <Image src='/img/northone.png' size='medium' centered />
           </Container>
           <Form
             size='large'
