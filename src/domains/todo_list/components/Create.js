@@ -12,6 +12,7 @@ import {
   import { login } from '../../../domains/auth/actions'
   import * as api from '../../../domains/api/actions'
   import {TASK, AUTHENTICATION_GLOBAL_PARAMS, REST_METHODS} from '../../url_constants'
+  import { DateTimeInput } from 'semantic-ui-calendar-react'
   
   const CustomButton = styled.button`
       background: ${(props) => (props.primary ? '#2185d0' : 'white')};
@@ -87,6 +88,9 @@ import {
             ) : null}
             <Container className='m-4'>
                 <h1>{'TO DO LIST'}</h1>
+                <section>
+                  <DateTimeInput style={{float: 'right', bottom: '1rem'}}/>
+                </section>
             </Container>
             <Form.TextArea
                 fluid

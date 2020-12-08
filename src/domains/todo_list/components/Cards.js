@@ -23,9 +23,17 @@ export const TaskCards = ({taskList = [], onRemoveClick, closeModal}) => {
                         </span>
                     </Container>
                     <Container>
-                        <span style={{float: 'left', paddingLeft: '1rem', color: 'lightgrey'}}>
-                            {`Created at: ${new Date(data.updatedAt)}`}
-                        </span>
+                        <section>
+                            <span style={{float: 'left', paddingLeft: '1rem', color: 'lightgrey'}}>
+                                {`Created at: ${new Date(data.updatedAt).toDateString()}`}
+                            </span>
+                        </section>
+                        <br></br>
+                        <section>
+                            <span style={{float: 'left', paddingLeft: '1rem', color: 'lightgrey'}}>
+                                {`Expire at: ${new Date(data.updatedAt).toDateString()}`}
+                            </span>
+                        </section>
                         <Button 
                             icon
                             labelPosition='left'
