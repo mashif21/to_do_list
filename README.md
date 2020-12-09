@@ -39,7 +39,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
   - To Do List = Handles all component and flow needed for todo list page and details page
   - Users - Handles flow for users data
  
-# Componenets and other elements
+# Components and other elements
   - Basic routing configurations are handled in router.js and components/App.js
   - All the public routes pages are under components folders
   - Basic app headers and primary menu are unders elements folder
