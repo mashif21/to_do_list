@@ -3,7 +3,7 @@ import * as CONSTANTS from './constants'
 import axios from 'axios'
 
 /* global localStorage */
-/* global fetch */
+///* global fetch */
 
 const { LOADING, RESULT, ERROR, LAST_SUCCESSFUL_RESULT } = CONSTANTS.STATE_TYPES
 const API_URL = 'https://api-nodejs-todolist.herokuapp.com/'
